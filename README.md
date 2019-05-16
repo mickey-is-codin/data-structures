@@ -9,3 +9,6 @@
     I would like to have some boilerplate and UNIX-style programs that
     I can use with the data structures in a more seamless way.
 </p>
+
+<p> Binary Tree Node Insertion Program </p>
+<img src="images/insert_program.gif"

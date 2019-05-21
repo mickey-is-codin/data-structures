@@ -12,3 +12,6 @@
 
 <p> Binary Tree Node Insertion Program </p>
 <img src="images/insert_program.gif">
+
+<p> Linked List Insertion Program </p>
+<img src="images/list_insert_program.gif"

@@ -12,7 +12,7 @@ COL_H=clog.h
 $(EXEC) : $(SRC_H) $(SRC_C)
 	$(CC) $(SRC_C) -o $(EXEC)
 
-$(COL_EXEC) : $(COL_C) $(COL_H)
+colors: $(COL_C) $(COL_H)
 	$(CC) $(COL_C) -o $(COL_EXEC)
 
 clean:

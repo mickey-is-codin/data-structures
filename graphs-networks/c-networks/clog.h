@@ -15,6 +15,6 @@
 #define BCYAN "\033[1;36m"
 #define RESET "\033[0m"
 
-#define log_red(x) printf("%sRed?\n%s", RED, RESET);
+#define log_red(fmt, ...) printf("%s", RED); printf(fmt, ##__VA_ARGS__); printf("\n%s", RESET);
 
 #endif

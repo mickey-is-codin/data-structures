@@ -18,5 +18,8 @@ int main(int argc, char ** argv) {
     log_cyan("Cyan");
     log_bcyan("Bold Cyan");
 
+    int random_integerino = 5;
+    log_int(random_integerino);
+
     return EXIT_SUCCESS;
 }

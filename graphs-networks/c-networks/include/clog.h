@@ -28,5 +28,6 @@
 #define log_cyan(fmt, ...) printf("%s", CYAN); printf(fmt, ##__VA_ARGS__); printf("\n%s", RESET);
 #define log_bcyan(fmt, ...) printf("%s", BCYAN); printf(fmt, ##__VA_ARGS__); printf("\n%s", RESET);
 
+#define log_int(x) printf("%s == %d\n", #x, x);
 
 #endif

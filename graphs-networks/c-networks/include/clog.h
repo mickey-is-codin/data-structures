@@ -29,5 +29,8 @@
 #define log_bcyan(fmt, ...) printf("%s", BCYAN); printf(fmt, ##__VA_ARGS__); printf("\n%s", RESET);
 
 #define log_int(x) printf("%s == %d\n", #x, x);
+#define log_long(x) printf("%s == %ld\n", #x, x);
+#define log_double(x) printf("%s == %lf\n", #x, x);
+#define log_float(x) printf("%s == %f\n", #x, x);
 
 #endif

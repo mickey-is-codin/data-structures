@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "clog.h"
+#include "../include/clog.h"
 
 int main(int argc, char ** argv) {
 

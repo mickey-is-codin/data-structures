@@ -1,6 +1,6 @@
 EXEC=bin/network
-SRC_C=src/network.c src/graphs.c src/struct_print.c
-SRC_H=include/graphs.h include/struct_print.h include/clog.h
+SRC_C=src/network.c src/graph.c src/gviz_structs.c src/list.c
+SRC_H=include/graph.h include/gviz_structs.h include/clog.h include/list.h
 
 CC=gcc
 

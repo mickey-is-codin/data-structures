@@ -8,7 +8,7 @@
 #include "../include/network.h"
 #include "../include/list.h"
 #include "../include/graph.h"
-#include "../include/struct_print.h"
+#include "../include/gviz_structs.h"
 #include "../include/clog.h"
 
 int main(int argc, char ** argv) {
@@ -24,6 +24,21 @@ int main(int argc, char ** argv) {
 
     int rand_int = randn(50, 15);
     log_int(rand_int);
+
+    ListNode * head = create_node(4);
+    append(head, 5);
+    append(head, 6);
+    append(head, 7);
+    append(head, 8);
+    append(head, 9);
+
+    print_list(head);
+
+    pop(head);
+    pop(head);
+    pop(head);
+
+    print_list(head);
 
     return EXIT_SUCCESS;
 }

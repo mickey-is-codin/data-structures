@@ -34,7 +34,7 @@ int main(int argc, char ** argv) {
 
     print_list(head);
 
-    //generate_gviz_list(head, "list_graph.dot");
+    generate_gviz_list(head, "graphviz/list_graph.dot");
 
     destroy_list(head);
 

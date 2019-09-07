@@ -32,7 +32,13 @@ void pop(ListNode * head) {
 }
 
 void destroy_list(ListNode * head) {
-
+    ListNode * victim_node = head;
+    while (head->next != NULL) {
+        victim_node = head;
+        head = head->next;
+        free(victim_node);
+    }
+    free(head);
 }
 
 void print_list(ListNode * head) {

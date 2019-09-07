@@ -13,7 +13,7 @@
 
 int main(int argc, char ** argv) {
 
-    printf("Beginning program...\n");
+    printf("Beginning program...\n\n");
     srand(time(0));
 
     // Values set from command line arguments.
@@ -34,11 +34,9 @@ int main(int argc, char ** argv) {
 
     print_list(head);
 
-    pop(head);
-    pop(head);
-    pop(head);
+    //generate_gviz_list(head, "list_graph.dot");
 
-    print_list(head);
+    destroy_list(head);
 
     return EXIT_SUCCESS;
 }

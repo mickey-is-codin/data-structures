@@ -1,0 +1,7 @@
+digraph unix {
+    size="6,6";
+    rankdir="LR";
+    a -> b
+    b -> c
+    c -> d
+}

@@ -17,10 +17,10 @@ int main(int argc, char ** argv) {
     srand(time(0));
 
     // Values set from command line arguments.
-    bool generate_dot = false;
+    bool generate_dots = false;
     int max_nodes = 100;
 
-    parse_args(argc, argv, &generate_dot, &max_nodes);
+    parse_args(argc, argv, &generate_dots, &max_nodes);
 
     int rand_int = randn(50, 15);
     log_int(rand_int);
@@ -32,9 +32,7 @@ int main(int argc, char ** argv) {
     append(head, 8);
     append(head, 9);
 
-    print_list(head);
-
-    //generate_gviz_list(head, "list_graph.dot");
+    generate_gviz_list(head, "graphviz/list_graph.dot");
 
     destroy_list(head);
 
@@ -67,14 +65,14 @@ int randn(double mu, double sigma) {
     return (int) (mu + sigma * (double) x1);
 }
 
-void parse_args(int argc, char ** argv, bool * generate_dot, int * max_nodes) {
+void parse_args(int argc, char ** argv, bool * generate_dots, int * max_nodes) {
 
     int opt;
 
     while ((opt = getopt(argc, argv, "dn:")) != -1) {
         switch (opt) {
             case 'd':
-                *generate_dot = true;
+                *generate_dots = true;
                 log_yell("graph .dot will be generated");
                 break;
             case 'n':

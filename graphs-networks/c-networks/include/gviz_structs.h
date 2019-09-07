@@ -6,7 +6,6 @@
 
 #include "list.h"
 
-void generate_gviz_list(ListNode * head, char ** filename);
-
+void generate_gviz_list(ListNode * head, char * filename);
 
 #endif

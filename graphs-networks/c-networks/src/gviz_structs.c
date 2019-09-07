@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "../include/gviz_structs.h"
+<<<<<<< HEAD
 #include "../include/clog.h"
 
 void generate_gviz_list(ListNode * head, char * filename) {
@@ -31,3 +32,5 @@ void generate_gviz_list(ListNode * head, char * filename) {
     fclose(dotfile);
 
 }
+=======
+>>>>>>> parent of 5a420bb... Going to start trying to generate dot files from program

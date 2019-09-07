@@ -13,7 +13,7 @@
 
 int main(int argc, char ** argv) {
 
-    printf("Beginning program...\n\n");
+    printf("Beginning program...\n");
     srand(time(0));
 
     // Values set from command line arguments.
@@ -32,9 +32,17 @@ int main(int argc, char ** argv) {
     append(head, 8);
     append(head, 9);
 
+<<<<<<< HEAD
     generate_gviz_list(head, "graphviz/list_graph.dot");
+=======
+    print_list(head);
 
-    destroy_list(head);
+    pop(head);
+    pop(head);
+    pop(head);
+>>>>>>> parent of 5a420bb... Going to start trying to generate dot files from program
+
+    print_list(head);
 
     return EXIT_SUCCESS;
 }

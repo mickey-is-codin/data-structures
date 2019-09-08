@@ -9,7 +9,7 @@ typedef struct _ListNode {
 ListNode * create_node(int value);
 void append(ListNode * head, int value);
 void pop(ListNode * head);
-void destroy_list(ListNode * head);
+void destroy_adj(ListNode * head, int num_nodes);
 void print_list(ListNode * head);
 
 #endif

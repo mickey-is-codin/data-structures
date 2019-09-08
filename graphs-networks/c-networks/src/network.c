@@ -25,18 +25,17 @@ int main(int argc, char ** argv) {
     int rand_int = randn(50, 15);
     log_int(rand_int);
 
-    ListNode * head = create_node(4);
-    append(head, 5);
-    append(head, 6);
-    append(head, 7);
-    append(head, 8);
-    append(head, 9);
+    ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
 
-    print_list(head);
+    for (int node_ix=0; node_ix<max_nodes; node_ix++) {
+        adj_list[node_ix] = create_node(node_ix);
+        append(adj_list[node_ix], node_ix+1);
+    }
 
-    generate_gviz_list(head, "graphviz/list_graph.dot");
+    //generate_gviz_list(adj_list[1], "graphviz/list_graph.dot");
+    gviz_adj(adj_list, max_nodes);
 
-    destroy_list(head);
+    //destroy_adj(*adj_list, max_nodes);
 
     return EXIT_SUCCESS;
 }

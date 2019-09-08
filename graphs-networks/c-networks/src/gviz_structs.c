@@ -21,3 +21,11 @@ void generate_gviz_list(ListNode * head, char * filename) {
     fclose(dotfile);
 
 }
+
+void gviz_adj(ListNode ** adj_list, int num_nodes) {
+
+    for (int node_ix=0; node_ix<num_nodes, node_ix++) {
+
+    }
+
+}

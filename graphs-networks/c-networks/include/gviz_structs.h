@@ -7,5 +7,6 @@
 #include "list.h"
 
 void generate_gviz_list(ListNode * head, char * filename);
+void gviz_adj(ListNode ** adj_list, int num_nodes);
 
 #endif

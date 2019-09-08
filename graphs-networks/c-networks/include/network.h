@@ -3,5 +3,6 @@
 
 void parse_args(int argc, char ** argv, bool * generate_dot, int * max_nodes);
 int randn(double mu, double sigma);
+int randint(int lower, int upper);
 
 #endif

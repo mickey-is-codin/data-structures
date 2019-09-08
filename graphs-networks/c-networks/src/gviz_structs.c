@@ -7,8 +7,8 @@ void gviz_adj(char * filename, ListNode ** adj_list, int num_nodes) {
 
     FILE * dotfile = fopen(filename, "wb");
 
-    fprintf(dotfile, "digraph unix {\n");
-    fprintf(dotfile, "\tgraph [ dpi = 5000 ];\n");
+    fprintf(dotfile, "graph unix {\n");
+    fprintf(dotfile, "\tgraph [ dpi = 300 ];\n");
     fprintf(dotfile, "\tsize=\"6,6\";\n");
     fprintf(dotfile, "\trankdir=\"LR\";\n\n");
 
@@ -16,7 +16,8 @@ void gviz_adj(char * filename, ListNode ** adj_list, int num_nodes) {
 
         ListNode * print_node = adj_list[node_ix];
         while (print_node->next != NULL) {
-            fprintf(dotfile, "\t\"%s\" -> \"%s\"\n", print_node->label, print_node->next->label);
+            fprintf(dotfile, "\t\"%s\" -- \"%s\"\n", adj_list[node_ix]->label, print_node->next->label);
+            printf("%s -> %s\n", adj_list[node_ix]->label, print_node->next->label);
             print_node = print_node->next;
         }
 

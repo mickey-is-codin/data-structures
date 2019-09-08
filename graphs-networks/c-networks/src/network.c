@@ -18,21 +18,34 @@ int main(int argc, char ** argv) {
 
     // Values set from command line arguments.
     bool generate_dot = false;
-    int max_nodes = 100;
+    int max_nodes = 5;
 
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
-    int rand_int = randn(50, 15);
-    log_int(rand_int);
+    int time_gap = randn(50, 15);
+    log_int(time_gap);
+
+    int connection_node;
 
     ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
 
     for (int node_ix=0; node_ix<max_nodes; node_ix++) {
-        adj_list[node_ix] = create_node(node_ix+1);
-        //append(adj_list[node_ix], (node_ix+1) * 100);
+        adj_list[node_ix] = create_node(node_ix);
+    }
 
-        // Add connections here. Each iteration of the loop is a node in the graph
-        // This location would be a great spot for random additions.
+    int src_node;
+    int dst_node;
+    int full_graph_edges = (int) (max_nodes * (max_nodes - 1)) / 2;
+    for (int rand_ix=0; rand_ix<full_graph_edges; rand_ix++) {
+
+        do {
+            src_node = randint(0, max_nodes-1);
+            dst_node = randint(0, max_nodes-1);
+        } while (dst_node == src_node);
+
+        printf("Connection %d: %d to %d\n", rand_ix, src_node, dst_node);
+
+        append(adj_list[src_node], dst_node);
     }
 
     gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);
@@ -40,6 +53,10 @@ int main(int argc, char ** argv) {
     //destroy_adj(*adj_list, max_nodes);
 
     return EXIT_SUCCESS;
+}
+
+int randint(int lower, int upper) {
+    return ((rand() % (upper - lower + 1)) + lower);
 }
 
 int randn(double mu, double sigma) {

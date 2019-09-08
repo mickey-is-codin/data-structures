@@ -32,7 +32,6 @@ int main(int argc, char ** argv) {
         append(adj_list[node_ix], (node_ix+1) * 100);
     }
 
-    //generate_gviz_list("graphviz/list_graph.dot", adj_list[1]);
     gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);
 
     //destroy_adj(*adj_list, max_nodes);

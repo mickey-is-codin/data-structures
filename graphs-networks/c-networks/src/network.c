@@ -18,7 +18,7 @@ int main(int argc, char ** argv) {
 
     // Values set from command line arguments.
     bool generate_dot = false;
-    int max_nodes = 20;
+    int max_nodes = 100;
 
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
@@ -28,8 +28,8 @@ int main(int argc, char ** argv) {
     ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
 
     for (int node_ix=0; node_ix<max_nodes; node_ix++) {
-        adj_list[node_ix] = create_node(node_ix);
-        append(adj_list[node_ix], node_ix+1);
+        adj_list[node_ix] = create_node(node_ix+1);
+        append(adj_list[node_ix], (node_ix+1) * 100);
     }
 
     //generate_gviz_list("graphviz/list_graph.dot", adj_list[1]);

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../include/list.h"
 #include "../include/clog.h"
@@ -7,6 +8,7 @@
 ListNode * create_node(int value) {
     ListNode * new_node = malloc(sizeof(*new_node));
     new_node->value = value;
+    sprintf(new_node->label, "Node %d", value);
     new_node->next = NULL;
     return new_node;
 }

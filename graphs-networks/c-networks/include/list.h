@@ -3,7 +3,7 @@
 
 typedef struct _ListNode {
     int value;
-    char label[50];
+    char label[32];
     struct _ListNode * next;
 } ListNode;
 

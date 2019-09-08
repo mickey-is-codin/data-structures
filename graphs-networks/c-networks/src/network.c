@@ -18,7 +18,7 @@ int main(int argc, char ** argv) {
 
     // Values set from command line arguments.
     bool generate_dot = false;
-    int max_nodes = 100;
+    int max_nodes = 20;
 
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
@@ -32,8 +32,8 @@ int main(int argc, char ** argv) {
         append(adj_list[node_ix], node_ix+1);
     }
 
-    //generate_gviz_list(adj_list[1], "graphviz/list_graph.dot");
-    gviz_adj(adj_list, max_nodes);
+    //generate_gviz_list("graphviz/list_graph.dot", adj_list[1]);
+    gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);
 
     //destroy_adj(*adj_list, max_nodes);
 

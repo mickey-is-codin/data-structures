@@ -23,29 +23,9 @@ int main(int argc, char ** argv) {
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
     int time_gap = randn(50, 15);
-    log_int(time_gap);
 
-    int connection_node;
-
-    ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
-
-    for (int node_ix=0; node_ix<max_nodes; node_ix++) {
-        adj_list[node_ix] = create_node(node_ix);
-    }
-
-    int src_node;
-    int dst_node;
-    int full_graph_edges = (int) (max_nodes * (max_nodes - 1)) / 2;
-    for (int rand_ix=0; rand_ix<full_graph_edges; rand_ix++) {
-
-        do {
-            src_node = randint(0, max_nodes-1);
-            dst_node = randint(0, max_nodes-1);
-        } while (dst_node == src_node);
-
-        append(adj_list[src_node], dst_node);
-    }
-
+    ListNode ** adj_list = build_base_adj_list(max_nodes);
+    fill_graph(adj_list, max_nodes);
     gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);
 
     //destroy_adj(*adj_list, max_nodes);
@@ -81,6 +61,31 @@ int randn(double mu, double sigma) {
     call = !call;
 
     return (int) (mu + sigma * (double) x1);
+}
+
+void fill_graph(ListNode ** adj_list, int max_nodes) {
+    int src_node;
+    int dst_node;
+    int full_graph_edges = (int) (max_nodes * (max_nodes - 1)) / 2;
+    for (int rand_ix=0; rand_ix<full_graph_edges; rand_ix++) {
+
+        do {
+            src_node = randint(0, max_nodes-1);
+            dst_node = randint(0, max_nodes-1);
+        } while (dst_node == src_node);
+
+        append(adj_list[src_node], dst_node);
+    }
+}
+
+ListNode ** build_base_adj_list(int max_nodes) {
+    ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
+
+    for (int node_ix=0; node_ix<max_nodes; node_ix++) {
+        adj_list[node_ix] = create_node(node_ix);
+    }
+
+    return adj_list;
 }
 
 void parse_args(int argc, char ** argv, bool * generate_dot, int * max_nodes) {

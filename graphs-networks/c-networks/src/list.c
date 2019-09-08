@@ -8,7 +8,7 @@
 ListNode * create_node(int value) {
     ListNode * new_node = malloc(sizeof(*new_node));
     new_node->value = value;
-    sprintf(new_node->label, "Node %d", value);
+    sprintf(new_node->label, "%d", value);
     new_node->next = NULL;
     return new_node;
 }

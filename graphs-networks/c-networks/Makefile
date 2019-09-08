@@ -21,8 +21,9 @@ colors: $(COL_C) $(COL_H)
 	$(CC) $(COL_C) -o $(COL_EXEC)
 
 graphs: $(SRC_H) $(SRC_C)
-	$(EXEC) && $(SFDP_OPTS) $(GVIZ_LIST_DOT) > $(GVIZ_LIST_IMG)
 	#$(EXEC) && dot -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
+	$(EXEC) && $(SFDP_OPTS) $(GVIZ_LIST_DOT) > $(GVIZ_LIST_IMG)
+	#$(EXEC) && circo -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
 	open $(GVIZ_LIST_IMG)
 
 clean:

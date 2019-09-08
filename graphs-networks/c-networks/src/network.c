@@ -18,7 +18,7 @@ int main(int argc, char ** argv) {
 
     // Values set from command line arguments.
     bool generate_dot = false;
-    int max_nodes = 5;
+    int max_nodes = 10;
 
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
@@ -42,8 +42,6 @@ int main(int argc, char ** argv) {
             src_node = randint(0, max_nodes-1);
             dst_node = randint(0, max_nodes-1);
         } while (dst_node == src_node);
-
-        printf("Connection %d: %d to %d\n", rand_ix, src_node, dst_node);
 
         append(adj_list[src_node], dst_node);
     }

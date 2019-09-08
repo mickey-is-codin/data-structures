@@ -20,10 +20,19 @@ $(EXEC) : $(SRC_H) $(SRC_C)
 colors: $(COL_C) $(COL_H)
 	$(CC) $(COL_C) -o $(COL_EXEC)
 
-graphs: $(SRC_H) $(SRC_C)
-	#$(EXEC) && dot -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
+dotgraph: $(SRC_H) $(SRC_C)
+	$(CC) $(SRC_C) -o $(EXEC)
+	$(EXEC) && dot -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
+	open $(GVIZ_LIST_IMG)
+
+neatgraph: $(SRC_H) $(SRC_C)
+	$(CC) $(SRC_C) -o $(EXEC)
 	$(EXEC) && $(SFDP_OPTS) $(GVIZ_LIST_DOT) > $(GVIZ_LIST_IMG)
-	#$(EXEC) && circo -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
+	open $(GVIZ_LIST_IMG)
+
+circlegraph: $(SRC_H) $(SRC_C)
+	$(CC) $(SRC_C) -o $(EXEC)
+	$(EXEC) && circo -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
 	open $(GVIZ_LIST_IMG)
 
 clean:

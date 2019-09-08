@@ -29,7 +29,10 @@ int main(int argc, char ** argv) {
 
     for (int node_ix=0; node_ix<max_nodes; node_ix++) {
         adj_list[node_ix] = create_node(node_ix+1);
-        append(adj_list[node_ix], (node_ix+1) * 100);
+        //append(adj_list[node_ix], (node_ix+1) * 100);
+
+        // Add connections here. Each iteration of the loop is a node in the graph
+        // This location would be a great spot for random additions.
     }
 
     gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);

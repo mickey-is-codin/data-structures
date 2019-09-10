@@ -16,7 +16,9 @@ void gviz_adj(char * filename, int ** a_matrix, int num_nodes) {
     for (int row_ix=0; row_ix<num_nodes; row_ix++) {
         for (int col_ix=0; col_ix<num_nodes; col_ix++) {
             if (a_matrix[row_ix][col_ix]) {
-                fprintf(dotfile, "\t%d -- %d\n", row_ix, col_ix);
+                for (int link_ix=0; link_ix<a_matrix[row_ix][col_ix]; link_ix++) {
+                    fprintf(dotfile, "\t%d -- %d\n", row_ix, col_ix);
+                }
             }
         }
     }

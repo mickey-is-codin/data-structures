@@ -24,9 +24,9 @@ int main(int argc, char ** argv) {
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
     int ** a_matrix = build_a_matrix(max_nodes);
-    //print_a_matrix(a_matrix, max_nodes);
+    print_a_matrix(a_matrix, max_nodes);
     fill_graph(a_matrix, max_nodes);
-    //print_a_matrix(a_matrix, max_nodes);
+    print_a_matrix(a_matrix, max_nodes);
     gviz_adj("graphviz/random_graph.dot", a_matrix, max_nodes);
 
     // Free adj matrix here
@@ -73,31 +73,34 @@ float normal_float(double mu, double sigma) {
 
 void fill_graph(int ** a_matrix, int max_nodes) {
 
+    int total_connections = 0;
+    int full_graph_edges = (int) (max_nodes * (max_nodes - 1) ) / 2;
     int col_creep = 0;
     float link_prob;
-    float prob_thresh = 0.6;
-    int num_passes = 10;
+    float prob_thresh = 0.5;
+    float giant_comp_thresh = 1.0 / max_nodes;
+    int num_passes = 1;
 
     for (int pass_ix=0; pass_ix<num_passes; pass_ix++) {
         for (int row_ix=0; row_ix<max_nodes; row_ix++) {
             for (int col_ix=col_creep; col_ix<max_nodes; col_ix++) {
                 link_prob = normal_float(0.5, 0.1);
 
-                //printf("(%d,%d)\n", row_ix, col_ix);
-
-                //printf("Prob of %d linking with %d: %.2f\n", row_ix, col_ix, link_prob);
-
                 if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
-                    // printf("%.2f -- Linking node %d to node %d\n", link_prob, row_ix, col_ix);
-                    a_matrix[row_ix][col_ix] = 1;
-                } else {
-                    a_matrix[row_ix][col_ix] = 0;
+                    a_matrix[row_ix][col_ix] += 1;
+                    total_connections++;
                 }
+
             }
             col_creep++;
         }
         col_creep = 0;
     }
+
+    float connected_ratio = (total_connections / (float) full_graph_edges) * 100.0;
+
+    printf("Graph made a total of %d connections out of %d (%2.2f%% connected)\n",
+        total_connections, full_graph_edges, connected_ratio);
 
 }
 

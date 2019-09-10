@@ -24,20 +24,20 @@ int main(int argc, char ** argv) {
     int max_nodes = 10;
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
+    // This program utilizes an adjacency list rather than an adjacency
+    // matrix. The adjacency list takes the form of an array of
+    // linked lists. Size of the array is max_nodes, while each
+    // linked list size grows with the program.
     ListNode ** adj_list = build_base_adj_list(max_nodes);
     fill_graph(adj_list, max_nodes);
     gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);
 
-    //destroy_adj(*adj_list, max_nodes);
+    // Destroy adjacency list here.
 
     return EXIT_SUCCESS;
 }
 
-int randint(int lower, int upper) {
-    return ((rand() % (upper - lower + 1)) + lower);
-}
-
-int randn(double mu, double sigma) {
+float normal_float(double mu, double sigma) {
 
     double u1, u2, w, mult;
     static double x1, x2;
@@ -45,7 +45,7 @@ int randn(double mu, double sigma) {
 
     if (call) {
         call = !call;
-        return (int) (mu + sigma * (double) x2);
+        return (mu + sigma * (double) x2);
     }
 
     do {
@@ -60,27 +60,38 @@ int randn(double mu, double sigma) {
 
     call = !call;
 
-    return (int) (mu + sigma * (double) x1);
+    return (mu + sigma * (double) x1);
 }
 
 void fill_graph(ListNode ** adj_list, int max_nodes) {
 
-    int src_node;
-    int dst_node;
-    int full_graph_edges = (int) (max_nodes * (max_nodes - 1)) / 2;
+    // Iterate through each possible connection on the
+    // graph. If a random pick is above 0.5, then
+    // create a connection between those two nodes.
 
-    for (int rand_ix=0; rand_ix<full_graph_edges; rand_ix++) {
+    int full_graph_nodes = (int) (max_nodes * (max_nodes - 1)) / 2;
+    float link_prob;
+    int connection_ix = 0;
+    for (int src_ix=0; src_ix<max_nodes; src_ix++) {
+        for (int dst_ix=0; dst_ix<max_nodes; dst_ix++) {
 
-        do {
-            src_node = randint(0, max_nodes-1);
-            dst_node = randint(0, max_nodes-1);
-        } while (dst_node == src_node);
+            connection_ix++;
+            if (connection_ix == full_graph_nodes) {
+                return;
+            }
 
-        append(adj_list[src_node], dst_node);
+            link_prob = normal_float(0.5, 0.05);
+
+            printf("Probability of link between %d and %d: %.2f\n", src_ix, dst_ix, link_prob);
+            if (link_prob > 0.5) {
+                append(adj_list[src_ix], dst_ix);
+            }
+        }
     }
 }
 
 ListNode ** build_base_adj_list(int max_nodes) {
+
     ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
 
     for (int node_ix=0; node_ix<max_nodes; node_ix++) {

@@ -21,21 +21,31 @@ int main(int argc, char ** argv) {
     bool generate_dot = false;
     int max_nodes = 10;
 
-    parse_args(argc, argv, &verbose, &generate_dot, &max_nodes);
+    if (argc > 1) {
+        parse_args(argc, argv, &verbose, &generate_dot, &max_nodes);
+    }
 
+    printf("Building initial adjacency list...");
     ListNode ** a_list = build_a_list(max_nodes);
+    log_green("✓");
+
     fill_a_list(a_list, max_nodes);
 
     if (generate_dot) {
+        printf("Generating graphviz dotfile...");
         gviz_a_list("graphviz/list_graph.dot", a_list, max_nodes);
+        log_green("✓");
     }
 
     if (verbose) {
         print_a_list(a_list, max_nodes);
     }
 
+    printf("Destroying adjacency list...");
     destroy_a_list(a_list, max_nodes);
+    log_green("✓");
 
+    log_green("\nAll Done!\n");
     return EXIT_SUCCESS;
 }
 
@@ -69,4 +79,6 @@ void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int
     for (; optind<argc; optind++) {
         printf("extra argument: %s\n", argv[optind]);
     }
+
+    printf("\n");
 }

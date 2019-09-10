@@ -25,7 +25,9 @@ int main(int argc, char ** argv) {
         parse_args(argc, argv, &verbose, &generate_dot, &num_nodes, &num_passes);
     }
 
+    printf("Building initial adjacency matrix...");
     int ** a_matrix = build_a_matrix(num_nodes, true);
+    log_green("✓");
 
     int total_connections = 0;
     int full_graph_edges = (int) (num_nodes * (num_nodes - 1) ) / 2;
@@ -35,7 +37,9 @@ int main(int argc, char ** argv) {
     float connected_ratio = (total_connections / (float) full_graph_edges) * 100.0;
 
     if (generate_dot) {
+        printf("Generating graphviz dotfile...");
         gviz_a_matrix("graphviz/matrix_graph.dot", a_matrix, num_nodes);
+        log_green("✓");
     }
 
     if (verbose) {
@@ -44,8 +48,11 @@ int main(int argc, char ** argv) {
                total_connections, full_graph_edges, connected_ratio);
     }
 
+    printf("Destroying adjacency matrix...");
     destroy_a_matrix(a_matrix, num_nodes);
+    log_green("✓");
 
+    log_green("\nAll Done!\n");
     return EXIT_SUCCESS;
 }
 
@@ -86,4 +93,6 @@ void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
     for (; optind<argc; optind++) {
         printf("extra argument: %s\n", argv[optind]);
     }
+
+    printf("\n");
 }

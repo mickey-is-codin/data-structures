@@ -19,10 +19,10 @@ COL_H=include/clog.h
 SFDP_OPTS=sfdp -x -Goverlap=scale -Tpng
 
 GVIZ_LIST_DOT=graphviz/list_graph.dot
-GVIZ_MAT_DOT=graphviz/mat_graph.dot
+GVIZ_MAT_DOT=graphviz/matrix_graph.dot
 
 GVIZ_LIST_IMG=graphviz/list_graph.png
-GVIZ_MAT_IMG=graphviz/mat_graph.png
+GVIZ_MAT_IMG=graphviz/matrix_graph.png
 
 all: list matrix
 

@@ -36,7 +36,7 @@ int main(int argc, char ** argv) {
     //print_a_matrix(a_matrix, max_nodes);
 
     if (generate_dot) {
-        gviz_a_matrix("graphviz/random_graph.dot", a_matrix, max_nodes);
+        gviz_a_matrix("graphviz/matrix_graph.dot", a_matrix, max_nodes);
     }
 
     // Free adj matrix here

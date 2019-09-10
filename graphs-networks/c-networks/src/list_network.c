@@ -10,46 +10,45 @@
 #include "../include/gviz_structs.h"
 #include "../include/clog.h"
 
-void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int * max_nodes);
+void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int * num_nodes);
 
 int main(int argc, char ** argv) {
 
     printf("Beginning program...\n\n");
     srand(time(0));
 
-    bool verbose = false;
+    bool verbose      = false;
     bool generate_dot = false;
-    int max_nodes = 10;
-
+    int  num_nodes    = 10;
     if (argc > 1) {
-        parse_args(argc, argv, &verbose, &generate_dot, &max_nodes);
+        parse_args(argc, argv, &verbose, &generate_dot, &num_nodes);
     }
 
     printf("Building initial adjacency list...");
-    ListNode ** a_list = build_a_list(max_nodes);
+    ListNode ** a_list = build_a_list(num_nodes);
     log_green("✓");
 
-    fill_a_list(a_list, max_nodes);
+    fill_a_list(a_list, num_nodes);
 
     if (generate_dot) {
         printf("Generating graphviz dotfile...");
-        gviz_a_list("graphviz/list_graph.dot", a_list, max_nodes);
+        gviz_a_list("graphviz/list_graph.dot", a_list, num_nodes);
         log_green("✓");
     }
 
     if (verbose) {
-        print_a_list(a_list, max_nodes);
+        print_a_list(a_list, num_nodes);
     }
 
     printf("Destroying adjacency list...");
-    destroy_a_list(a_list, max_nodes);
+    destroy_a_list(a_list, num_nodes);
     log_green("✓");
 
     log_green("\nAll Done!\n");
     return EXIT_SUCCESS;
 }
 
-void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int * max_nodes) {
+void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int * num_nodes) {
 
     int opt;
 
@@ -64,8 +63,8 @@ void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int
                 log_yell("graph .dot will be generated");
                 break;
             case 'n':
-                *max_nodes = atoi(optarg);
-                log_yell("max nodes set to %d", *max_nodes);
+                *num_nodes = atoi(optarg);
+                log_yell("max nodes set to %d", *num_nodes);
                 break;
             case ':':
                 printf("option needs a value\n");

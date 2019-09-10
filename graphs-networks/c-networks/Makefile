@@ -24,37 +24,41 @@ GVIZ_MAT_DOT=graphviz/matrix_graph.dot
 GVIZ_LIST_IMG=graphviz/list_graph.png
 GVIZ_MAT_IMG=graphviz/matrix_graph.png
 
+PROG_FLAGS=-v -d -n 10 -p 2
+
 all: list matrix
 
+# ADJACENCY LIST MAKES
 list: $(SRC_C) $(LIST_C)
 	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
 
 ldot: $(SRC_C) $(LIST_C)
 	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
-	$(LIST_EXEC) && dot -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
+	$(LIST_EXEC) $(PROG_FLAGS) && dot -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
 
 lneat: $(SRC_C) $(LIST_C)
 	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
-	$(LIST_EXEC) && $(SFDP_OPTS) $(GVIZ_LIST_DOT) > $(GVIZ_LIST_IMG)
+	$(LIST_EXEC) $(PROG_FLAGS) && $(SFDP_OPTS) $(GVIZ_LIST_DOT) > $(GVIZ_LIST_IMG)
 
 lcirc: $(SRC_C) $(LIST_C)
 	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
-	$(LIST_EXEC) && circo -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
+	$(LIST_EXEC) $(PROG_FLAGS) && circo -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
 
+# ADJACENCY MATRIX MAKES
 matrix: $(SRC_C) $(MAT_C)
 	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
 
 mdot: $(SRC_C) $(MAT_C)
 	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
-	$(MAT_EXEC) && dot -Tpng $(GVIZ_MAT_DOT) -o $(GVIZ_MAT_IMG)
+	$(MAT_EXEC) $(PROG_FLAGS) && dot -Tpng $(GVIZ_MAT_DOT) -o $(GVIZ_MAT_IMG)
 
 mneat: $(SRC_C) $(MAT_C)
 	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
-	$(MAT_EXEC) && $(SFDP_OPTS) $(GVIZ_MAT_DOT) > $(GVIZ_MAT_IMG)
+	$(MAT_EXEC) $(PROG_FLAGS) && $(SFDP_OPTS) $(GVIZ_MAT_DOT) > $(GVIZ_MAT_IMG)
 
 mcirc: $(SRC_C) $(MAT_C)
 	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
-	$(MAT_EXEC) && circo -Tpng $(GVIZ_MAT_DOT) -o $(GVIZ_MAT_IMG)
+	$(MAT_EXEC) $(PROG_FLAGS) && circo -Tpng $(GVIZ_MAT_DOT) -o $(GVIZ_MAT_IMG)
 
 colors: $(COL_C) $(COL_H)
 	$(CC) $(COL_C) -o $(COL_EXEC) $(CFLAGS)

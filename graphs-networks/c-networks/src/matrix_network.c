@@ -17,7 +17,7 @@ int main(int argc, char ** argv) {
 
     srand(time(0));
 
-    bool verbose = false;
+    bool verbose      = false;
     bool generate_dot = false;
     int  num_nodes    = 10;
     int  num_passes   = 1;

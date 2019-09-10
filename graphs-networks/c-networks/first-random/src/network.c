@@ -23,8 +23,8 @@ int main(int argc, char ** argv) {
 
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
-    ListNode ** adj_list = build_base_adj_list(max_nodes);
-    fill_list_graph(adj_list, max_nodes);
+    ListNode ** adj_list = build_a_list(max_nodes);
+    fill_a_list(adj_list, max_nodes);
     gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);
 
     //destroy_adj(*adj_list, max_nodes);

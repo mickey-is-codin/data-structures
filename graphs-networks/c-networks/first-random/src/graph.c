@@ -5,7 +5,8 @@
 
 #include "../include/graph.h"
 
-void fill_rand_graph(int ** a_matrix, int max_nodes, int num_passes) {
+/* ADJACENCY MATRIX OPERATIONS */
+void fill_a_matrix(int ** a_matrix, int max_nodes, int num_passes) {
 
     int total_connections = 0;
     int full_graph_edges = (int) (max_nodes * (max_nodes - 1) ) / 2;
@@ -97,7 +98,7 @@ float random_n_float(double mu, double sigma) {
 }
 
 /* ADJACENCY LIST OPERATIONS */
-ListNode ** build_base_adj_list(int max_nodes) {
+ListNode ** build_a_list(int max_nodes) {
     ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
 
     for (int node_ix=0; node_ix<max_nodes; node_ix++) {
@@ -107,7 +108,7 @@ ListNode ** build_base_adj_list(int max_nodes) {
     return adj_list;
 }
 
-void fill_list_graph(ListNode ** adj_list, int max_nodes) {
+void fill_a_list(ListNode ** adj_list, int max_nodes) {
 
     int src_node;
     int dst_node;

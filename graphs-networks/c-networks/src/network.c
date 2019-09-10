@@ -64,9 +64,11 @@ int randn(double mu, double sigma) {
 }
 
 void fill_graph(ListNode ** adj_list, int max_nodes) {
+
     int src_node;
     int dst_node;
     int full_graph_edges = (int) (max_nodes * (max_nodes - 1)) / 2;
+
     for (int rand_ix=0; rand_ix<full_graph_edges; rand_ix++) {
 
         do {

@@ -97,18 +97,25 @@ float random_n_float(double mu, double sigma) {
     return (mu + sigma * (double) x1);
 }
 
-/* ADJACENCY LIST OPERATIONS */
-ListNode ** build_a_list(int max_nodes) {
-    ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
-
-    for (int node_ix=0; node_ix<max_nodes; node_ix++) {
-        adj_list[node_ix] = create_node(node_ix);
+void destroy_a_matrix(int ** a_matrix, int num_nodes) {
+    for (int mat_ix=0; mat_ix<num_nodes; mat_ix++) {
+        free(a_matrix[mat_ix]);
     }
-
-    return adj_list;
+    free(a_matrix);
 }
 
-void fill_a_list(ListNode ** adj_list, int max_nodes) {
+/* ADJACENCY LIST OPERATIONS */
+ListNode ** build_a_list(int max_nodes) {
+    ListNode ** a_list = malloc(sizeof(*a_list) * (max_nodes));
+
+    for (int node_ix=0; node_ix<max_nodes; node_ix++) {
+        a_list[node_ix] = create_node(node_ix);
+    }
+
+    return a_list;
+}
+
+void fill_a_list(ListNode ** a_list, int max_nodes) {
 
     int src_node;
     int dst_node;
@@ -121,7 +128,7 @@ void fill_a_list(ListNode ** adj_list, int max_nodes) {
             dst_node = randint(0, max_nodes-1);
         } while (dst_node == src_node);
 
-        append(adj_list[src_node], dst_node);
+        append(a_list[src_node], dst_node);
     }
 }
 
@@ -129,4 +136,9 @@ int randint(int lower, int upper) {
     return ((rand() % (upper - lower + 1)) + lower);
 }
 
-
+void destroy_a_list(ListNode ** a_list, int num_nodes) {
+    for (int list_ix=0; list_ix<num_nodes; list_ix++) {
+        destroy_list(a_list[list_ix], num_nodes);
+    }
+    free(a_list);
+}

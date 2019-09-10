@@ -33,7 +33,7 @@ void pop(ListNode * head) {
     temp_node->next = NULL;
 }
 
-void destroy_adj(ListNode * head, int num_nodes) {
+void destroy_list(ListNode * head, int num_nodes) {
     ListNode * victim_node = head;
     while (head->next != NULL) {
         victim_node = head;

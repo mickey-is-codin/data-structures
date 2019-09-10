@@ -39,7 +39,7 @@ int main(int argc, char ** argv) {
         gviz_a_matrix("graphviz/matrix_graph.dot", a_matrix, max_nodes);
     }
 
-    // Free adj matrix here
+    destroy_a_matrix(a_matrix, max_nodes);
 
     return EXIT_SUCCESS;
 }

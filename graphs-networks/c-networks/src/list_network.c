@@ -23,14 +23,14 @@ int main(int argc, char ** argv) {
 
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
-    ListNode ** adj_list = build_a_list(max_nodes);
-    fill_a_list(adj_list, max_nodes);
+    ListNode ** a_list = build_a_list(max_nodes);
+    fill_a_list(a_list, max_nodes);
 
     if (generate_dot) {
-        gviz_a_list("graphviz/list_graph.dot", adj_list, max_nodes);
+        gviz_a_list("graphviz/list_graph.dot", a_list, max_nodes);
     }
 
-    //destroy_adj(*adj_list, max_nodes);
+    destroy_a_list(a_list, max_nodes);
 
     return EXIT_SUCCESS;
 }

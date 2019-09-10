@@ -6,8 +6,8 @@ CC=gcc
 
 SFDP_OPTS=sfdp -x -Goverlap=scale -Tpng
 GVIZ_DIR=graphviz/
-GVIZ_LIST_DOT=graphviz/list_graph.dot
-GVIZ_LIST_IMG=graphviz/list_graph.png
+GVIZ_LIST_DOT=graphviz/random_graph.dot
+GVIZ_LIST_IMG=graphviz/random_graph.png
 
 $(EXEC) : $(SRC_H) $(SRC_C)
 	$(CC) $(SRC_C) -o $(EXEC)

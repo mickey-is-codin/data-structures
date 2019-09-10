@@ -6,7 +6,7 @@
 #include "list.h"
 
 int ** build_a_matrix(int max_nodes, bool zero_fill);
-void fill_a_matrix(int ** a_matrix, int max_nodes, int num_passes);
+void fill_a_matrix(int ** a_matrix, int max_nodes, int num_passes, int * total_connections);
 void print_a_matrix(int ** a_matrix, int max_nodes);
 void destroy_a_matrix(int ** a_matrix, int max_nodes);
 

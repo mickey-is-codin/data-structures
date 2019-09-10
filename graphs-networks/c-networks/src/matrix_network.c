@@ -9,56 +9,66 @@
 #include "../include/gviz_structs.h"
 #include "../include/clog.h"
 
-void parse_args(int argc, char ** argv, bool * generate_dot, int * max_nodes, int * num_passes);
+void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int * num_nodes, int * num_passes);
 
 int main(int argc, char ** argv) {
 
     printf("Beginning program...\n\n");
 
-    // Seed random number generator using runtime
     srand(time(0));
 
-    // Initialize values that will be set by command line args and then
-    // parse the actual arguments using getopt(). Only check those arguments
-    // if the user has invoked >=1 of them (argc conditional).
+    bool verbose = false;
     bool generate_dot = false;
-    int  max_nodes    = 10;
+    int  num_nodes    = 10;
     int  num_passes   = 1;
     if (argc > 1) {
-        parse_args(argc, argv, &generate_dot, &max_nodes, &num_passes);
+        parse_args(argc, argv, &verbose, &generate_dot, &num_nodes, &num_passes);
     }
 
-    // Initialze the adjacency matrix and fill it with zeros
-    int ** a_matrix = build_a_matrix(max_nodes, true);
+    int ** a_matrix = build_a_matrix(num_nodes, true);
 
-    //print_a_matrix(a_matrix, max_nodes);
-    fill_a_matrix(a_matrix, max_nodes, num_passes);
-    //print_a_matrix(a_matrix, max_nodes);
+    int total_connections = 0;
+    int full_graph_edges = (int) (num_nodes * (num_nodes - 1) ) / 2;
+
+    fill_a_matrix(a_matrix, num_nodes, num_passes, &total_connections);
+
+    float connected_ratio = (total_connections / (float) full_graph_edges) * 100.0;
 
     if (generate_dot) {
-        gviz_a_matrix("graphviz/matrix_graph.dot", a_matrix, max_nodes);
+        gviz_a_matrix("graphviz/matrix_graph.dot", a_matrix, num_nodes);
     }
 
-    destroy_a_matrix(a_matrix, max_nodes);
+    if (verbose) {
+        print_a_matrix(a_matrix, num_nodes);
+        printf("Graph made a total of %d connections out of %d (%2.2f%% connected)\n",
+               total_connections, full_graph_edges, connected_ratio);
+    }
+
+    destroy_a_matrix(a_matrix, num_nodes);
 
     return EXIT_SUCCESS;
 }
 
-void parse_args(int argc, char ** argv, bool * generate_dot, int * max_nodes, int * num_passes) {
+void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
+                int * num_nodes, int * num_passes) {
 
     int opt;
 
     log_yell("==Command Line Arguments==\n");
 
-    while ((opt = getopt(argc, argv, "dn:p:")) != -1) {
+    while ((opt = getopt(argc, argv, "vdn:p:")) != -1) {
         switch (opt) {
+            case 'v':
+                *verbose = true;
+                log_yell("verbose output on");
+                break;
             case 'd':
                 *generate_dot = true;
                 log_yell("graph .dot will be generated");
                 break;
             case 'n':
-                *max_nodes = atoi(optarg);
-                log_yell("max nodes set to %d", *max_nodes);
+                *num_nodes = atoi(optarg);
+                log_yell("max nodes set to %d", *num_nodes);
                 break;
             case 'p':
                 *num_passes = atoi(optarg);

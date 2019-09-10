@@ -33,7 +33,7 @@ void pop(ListNode * head) {
     temp_node->next = NULL;
 }
 
-void destroy_list(ListNode * head, int num_nodes) {
+void destroy_list(ListNode * head) {
     ListNode * victim_node = head;
     while (head->next != NULL) {
         victim_node = head;
@@ -49,7 +49,6 @@ void print_list(ListNode * head) {
         printf("%d-->", print_node->value);
         print_node = print_node->next;
     }
-
-    printf("%d\n", print_node->value);
+    printf("%d", print_node->value);
 }
 

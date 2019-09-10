@@ -76,23 +76,27 @@ void fill_graph(int ** a_matrix, int max_nodes) {
     int col_creep = 0;
     float link_prob;
     float prob_thresh = 0.6;
+    int num_passes = 10;
 
-    for (int row_ix=0; row_ix<max_nodes; row_ix++) {
-        for (int col_ix=col_creep; col_ix<max_nodes; col_ix++) {
-            link_prob = normal_float(0.5, 0.1);
+    for (int pass_ix=0; pass_ix<num_passes; pass_ix++) {
+        for (int row_ix=0; row_ix<max_nodes; row_ix++) {
+            for (int col_ix=col_creep; col_ix<max_nodes; col_ix++) {
+                link_prob = normal_float(0.5, 0.1);
 
-            //printf("(%d,%d)\n", row_ix, col_ix);
+                //printf("(%d,%d)\n", row_ix, col_ix);
 
-            //printf("Prob of %d linking with %d: %.2f\n", row_ix, col_ix, link_prob);
+                //printf("Prob of %d linking with %d: %.2f\n", row_ix, col_ix, link_prob);
 
-            if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
-                // printf("%.2f -- Linking node %d to node %d\n", link_prob, row_ix, col_ix);
-                a_matrix[row_ix][col_ix] = 1;
-            } else {
-                a_matrix[row_ix][col_ix] = 0;
+                if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
+                    // printf("%.2f -- Linking node %d to node %d\n", link_prob, row_ix, col_ix);
+                    a_matrix[row_ix][col_ix] = 1;
+                } else {
+                    a_matrix[row_ix][col_ix] = 0;
+                }
             }
+            col_creep++;
         }
-        col_creep++;
+        col_creep = 0;
     }
 
 }

@@ -24,9 +24,9 @@ int main(int argc, char ** argv) {
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
     int ** a_matrix = build_a_matrix(max_nodes);
-    print_a_matrix(a_matrix, max_nodes);
+    //print_a_matrix(a_matrix, max_nodes);
     fill_graph(a_matrix, max_nodes);
-    print_a_matrix(a_matrix, max_nodes);
+    //print_a_matrix(a_matrix, max_nodes);
     gviz_adj("graphviz/random_graph.dot", a_matrix, max_nodes);
 
     // Free adj matrix here
@@ -73,25 +73,24 @@ float normal_float(double mu, double sigma) {
 
 void fill_graph(int ** a_matrix, int max_nodes) {
 
-    int count = 0;
     int col_creep = 0;
     float link_prob;
+    float prob_thresh = 0.6;
 
     for (int row_ix=0; row_ix<max_nodes; row_ix++) {
         for (int col_ix=col_creep; col_ix<max_nodes; col_ix++) {
-            link_prob = normal_float(0.5, 0.05);
+            link_prob = normal_float(0.5, 0.1);
 
             //printf("(%d,%d)\n", row_ix, col_ix);
 
             //printf("Prob of %d linking with %d: %.2f\n", row_ix, col_ix, link_prob);
 
-            if ((link_prob > 0.5) && (row_ix != col_ix)) {
+            if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
                 // printf("%.2f -- Linking node %d to node %d\n", link_prob, row_ix, col_ix);
                 a_matrix[row_ix][col_ix] = 1;
             } else {
                 a_matrix[row_ix][col_ix] = 0;
             }
-            count++;
         }
         col_creep++;
     }

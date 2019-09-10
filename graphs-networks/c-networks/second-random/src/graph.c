@@ -18,7 +18,7 @@ void fill_matrix_graph(int ** a_matrix, int max_nodes, int num_passes) {
     for (int pass_ix=0; pass_ix<num_passes; pass_ix++) {
         for (int row_ix=0; row_ix<max_nodes; row_ix++) {
             for (int col_ix=col_creep; col_ix<max_nodes; col_ix++) {
-                link_prob = random_float(0.5, 0.1);
+                link_prob = random_n_float(0.5, 0.1);
 
                 if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
                     a_matrix[row_ix][col_ix] += 1;
@@ -71,7 +71,7 @@ void print_a_matrix(int ** a_matrix, int max_nodes) {
     printf("\n");
 }
 
-float random_float(double mu, double sigma) {
+float random_n_float(double mu, double sigma) {
 
     double u1, u2, w, mult;
     static double x1, x2;
@@ -128,4 +128,5 @@ void fill_list_graph(ListNode ** adj_list, int max_nodes) {
 int randint(int lower, int upper) {
     return ((rand() % (upper - lower + 1)) + lower);
 }
+
 

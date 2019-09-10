@@ -9,7 +9,8 @@
 #include "../include/gviz_structs.h"
 #include "../include/clog.h"
 
-void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot, int * num_nodes, int * num_passes);
+int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
+                char ** dot_filename, int * num_nodes, int * num_passes);
 
 int main(int argc, char ** argv) {
 
@@ -19,10 +20,21 @@ int main(int argc, char ** argv) {
 
     bool verbose      = false;
     bool generate_dot = false;
+    char * dot_filename = "graphviz/matrix_graph.dot";
     int  num_nodes    = 10;
     int  num_passes   = 1;
     if (argc > 1) {
-        parse_args(argc, argv, &verbose, &generate_dot, &num_nodes, &num_passes);
+        int arg_result = parse_args(
+            argc, argv,
+            &verbose,
+            &generate_dot,
+            &dot_filename,
+            &num_nodes,
+            &num_passes
+        );
+        if (arg_result == -1) {
+            return EXIT_SUCCESS;
+        }
     }
 
     printf("Building initial adjacency matrix...");
@@ -38,7 +50,7 @@ int main(int argc, char ** argv) {
 
     if (generate_dot) {
         printf("Generating graphviz dotfile...");
-        gviz_a_matrix("graphviz/matrix_graph.dot", a_matrix, num_nodes);
+        gviz_a_matrix(dot_filename, a_matrix, num_nodes);
         log_green("✓");
     }
 
@@ -56,14 +68,14 @@ int main(int argc, char ** argv) {
     return EXIT_SUCCESS;
 }
 
-void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
-                int * num_nodes, int * num_passes) {
+int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
+                char ** dot_filename, int * num_nodes, int * num_passes) {
 
     int opt;
 
     log_yell("==Command Line Arguments==\n");
 
-    while ((opt = getopt(argc, argv, "vdn:p:")) != -1) {
+    while ((opt = getopt(argc, argv, "vd:n:p:")) != -1) {
         switch (opt) {
             case 'v':
                 *verbose = true;
@@ -71,6 +83,7 @@ void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
                 break;
             case 'd':
                 *generate_dot = true;
+                *dot_filename = optarg;
                 log_yell("graph .dot will be generated");
                 break;
             case 'n':
@@ -83,7 +96,7 @@ void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
                 break;
             case ':':
                 printf("option needs a value\n");
-                break;
+                return -1;
             case '?':
                 printf("unknown option: %c\n", optopt);
                 break;
@@ -95,4 +108,5 @@ void parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
     }
 
     printf("\n");
+    return 1;
 }

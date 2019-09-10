@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "list.h"
-
-void gviz_adj(char * filename, ListNode ** adj_list, int num_nodes);
+void gviz_adj(char * filename, int ** a_matrix, int num_nodes);
 
 #endif

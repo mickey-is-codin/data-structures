@@ -6,7 +6,6 @@
 #include <time.h>
 
 #include "../include/network.h"
-#include "../include/list.h"
 #include "../include/graph.h"
 #include "../include/gviz_structs.h"
 #include "../include/clog.h"
@@ -24,15 +23,9 @@ int main(int argc, char ** argv) {
     int max_nodes = 10;
     parse_args(argc, argv, &generate_dot, &max_nodes);
 
-    // This program utilizes an adjacency list rather than an adjacency
-    // matrix. The adjacency list takes the form of an array of
-    // linked lists. Size of the array is max_nodes, while each
-    // linked list size grows with the program.
-    ListNode ** adj_list = build_base_adj_list(max_nodes);
-    fill_graph(adj_list, max_nodes);
-    gviz_adj("graphviz/list_graph.dot", adj_list, max_nodes);
-
-    // Destroy adjacency list here.
+    int ** a_matrix = build_a_matrix(max_nodes);
+    fill_graph(a_matrix, max_nodes);
+    gviz_adj("graphviz/random_graph.dot", a_matrix, max_nodes);
 
     return EXIT_SUCCESS;
 }
@@ -63,42 +56,37 @@ float normal_float(double mu, double sigma) {
     return (mu + sigma * (double) x1);
 }
 
-void fill_graph(ListNode ** adj_list, int max_nodes) {
+void fill_graph(int ** a_matrix, int max_nodes) {
 
-    // Iterate through each possible connection on the
-    // graph. If a random pick is above 0.5, then
-    // create a connection between those two nodes.
-
-    int full_graph_nodes = (int) (max_nodes * (max_nodes - 1)) / 2;
+    int col_creep = 0;
     float link_prob;
-    int connection_ix = 0;
-    for (int src_ix=0; src_ix<max_nodes; src_ix++) {
-        for (int dst_ix=0; dst_ix<max_nodes; dst_ix++) {
 
-            connection_ix++;
-            if (connection_ix == full_graph_nodes) {
-                return;
-            }
-
+    for (int row_ix=0; row_ix<max_nodes; row_ix++) {
+        for (int col_ix=col_creep; col_ix<max_nodes; col_ix++) {
             link_prob = normal_float(0.5, 0.05);
 
-            printf("Probability of link between %d and %d: %.2f\n", src_ix, dst_ix, link_prob);
-            if (link_prob > 0.5) {
-                append(adj_list[src_ix], dst_ix);
+            printf("Prob of %d linking with %d: %.2f\n", row_ix, col_ix, link_prob);
+
+            if ((link_prob > 0.5) && (row_ix != col_ix)) {
+                a_matrix[row_ix][col_ix] = 1;
+            } else {
+                a_matrix[row_ix][col_ix] = 0;
             }
         }
+        col_creep++;
     }
+
 }
 
-ListNode ** build_base_adj_list(int max_nodes) {
+int ** build_a_matrix(int max_nodes) {
 
-    ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
+    int ** a_matrix = malloc(sizeof(*a_matrix) * max_nodes);
 
-    for (int node_ix=0; node_ix<max_nodes; node_ix++) {
-        adj_list[node_ix] = create_node(node_ix);
+    for (int init_ix=0; init_ix<max_nodes; init_ix++) {
+        a_matrix[init_ix] = malloc(sizeof(*(a_matrix[init_ix]) * max_nodes));
     }
 
-    return adj_list;
+    return a_matrix;
 }
 
 void parse_args(int argc, char ** argv, bool * generate_dot, int * max_nodes) {

@@ -5,7 +5,7 @@
 
 #include "../include/graph.h"
 
-void fill_rand_graph(int ** a_matrix, int max_nodes) {
+void fill_rand_graph(int ** a_matrix, int max_nodes, int num_passes) {
 
     int total_connections = 0;
     int full_graph_edges = (int) (max_nodes * (max_nodes - 1) ) / 2;
@@ -13,7 +13,6 @@ void fill_rand_graph(int ** a_matrix, int max_nodes) {
     float link_prob;
     float prob_thresh = 0.5;
     float giant_comp_thresh = 1.0 / max_nodes;
-    int num_passes = 1;
 
     for (int pass_ix=0; pass_ix<num_passes; pass_ix++) {
         for (int row_ix=0; row_ix<max_nodes; row_ix++) {
@@ -22,7 +21,9 @@ void fill_rand_graph(int ** a_matrix, int max_nodes) {
 
                 if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
                     a_matrix[row_ix][col_ix] += 1;
-                    total_connections++;
+                    if (a_matrix[row_ix][col_ix] == 1) {
+                        total_connections++;
+                    }
                 }
 
             }

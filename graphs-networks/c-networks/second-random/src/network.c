@@ -32,7 +32,7 @@ int main(int argc, char ** argv) {
     int ** a_matrix = build_a_matrix(max_nodes, true);
 
     print_a_matrix(a_matrix, max_nodes);
-    fill_rand_graph(a_matrix, max_nodes, num_passes);
+    fill_matrix_graph(a_matrix, max_nodes, num_passes);
     print_a_matrix(a_matrix, max_nodes);
 
     if (generate_dot) {

@@ -5,7 +5,8 @@
 
 #include "../include/graph.h"
 
-void fill_rand_graph(int ** a_matrix, int max_nodes, int num_passes) {
+/* ADJACENCY MATRIX OPERATIONS */
+void fill_matrix_graph(int ** a_matrix, int max_nodes, int num_passes) {
 
     int total_connections = 0;
     int full_graph_edges = (int) (max_nodes * (max_nodes - 1) ) / 2;
@@ -17,7 +18,7 @@ void fill_rand_graph(int ** a_matrix, int max_nodes, int num_passes) {
     for (int pass_ix=0; pass_ix<num_passes; pass_ix++) {
         for (int row_ix=0; row_ix<max_nodes; row_ix++) {
             for (int col_ix=col_creep; col_ix<max_nodes; col_ix++) {
-                link_prob = gen_link_prob(0.5, 0.1);
+                link_prob = random_float(0.5, 0.1);
 
                 if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
                     a_matrix[row_ix][col_ix] += 1;
@@ -70,8 +71,7 @@ void print_a_matrix(int ** a_matrix, int max_nodes) {
     printf("\n");
 }
 
-
-float gen_link_prob(double mu, double sigma) {
+float random_float(double mu, double sigma) {
 
     double u1, u2, w, mult;
     static double x1, x2;
@@ -96,3 +96,36 @@ float gen_link_prob(double mu, double sigma) {
 
     return (mu + sigma * (double) x1);
 }
+
+/* ADJACENCY LIST OPERATIONS */
+ListNode ** build_base_adj_list(int max_nodes) {
+    ListNode ** adj_list = malloc(sizeof(*adj_list) * (max_nodes));
+
+    for (int node_ix=0; node_ix<max_nodes; node_ix++) {
+        adj_list[node_ix] = create_node(node_ix);
+    }
+
+    return adj_list;
+}
+
+void fill_list_graph(ListNode ** adj_list, int max_nodes) {
+
+    int src_node;
+    int dst_node;
+    int full_graph_edges = (int) (max_nodes * (max_nodes - 1)) / 2;
+
+    for (int rand_ix=0; rand_ix<full_graph_edges; rand_ix++) {
+
+        do {
+            src_node = randint(0, max_nodes-1);
+            dst_node = randint(0, max_nodes-1);
+        } while (dst_node == src_node);
+
+        append(adj_list[src_node], dst_node);
+    }
+}
+
+int randint(int lower, int upper) {
+    return ((rand() % (upper - lower + 1)) + lower);
+}
+

@@ -3,9 +3,15 @@
 
 #include <stdbool.h>
 
+#include "list.h"
+
 int ** build_a_matrix(int max_nodes, bool zero_fill);
-void fill_rand_graph(int ** a_matrix, int max_nodes, int num_passes);
+void fill_matrix_graph(int ** a_matrix, int max_nodes, int num_passes);
 void print_a_matrix(int ** a_matrix, int max_nodes);
-float gen_link_prob(double mu, double sigma);
+float random_float(double mu, double sigma);
+
+ListNode ** build_base_adj_list(int max_nodes);
+void fill_list_graph(ListNode ** adj_list, int max_nodes);
+int randint(int lower, int upper);
 
 #endif

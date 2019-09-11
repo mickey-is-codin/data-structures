@@ -8,9 +8,6 @@ typedef struct _TreeNode {
     struct _TreeNode * right;
 } TreeNode;
 
-/* FUNCTION DECLARATIONS */
-TreeNode * insert_treenode(TreeNode * current_root, int value);
-TreeNode * create_treenode(int value);
-void destroy_tree(TreeNode * current_root);
+
 
 #endif

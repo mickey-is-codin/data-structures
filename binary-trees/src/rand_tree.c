@@ -34,13 +34,17 @@ int main(int argc, char ** argv) {
     TreeNode * root = NULL;
 
     int random_pick;
+    printf("Building binary tree...");
     for (int build_ix=0; build_ix<num_nodes; build_ix++) {
         random_pick = randint(-100, 100);
         root = insert_treenode(root, random_pick);
     }
+    log_green("✓");
 
     if (generate_dot) {
+        printf("Generating binary tree graphviz dot file...");
         gviz_tree(dot_filename, root);
+        log_green("✓");
     }
 
     destroy_tree(root);

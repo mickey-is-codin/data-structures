@@ -23,7 +23,7 @@ GVIZ_ORD_DOT=graphviz/ord_tree.dot
 GVIZ_RAND_IMG=graphviz/rand_tree.png
 GVIZ_ORD_IMG=graphviz/ord_tree.png
 
-RAND_FLAGS=-v -d $(GVIZ_RAND_DOT) -n 10
+RAND_FLAGS=-v -d $(GVIZ_RAND_DOT) -n 30
 ORD_FLAGS=-v -d $(GVIZ_ORD_DOT) -n 10
 
 all: rand order

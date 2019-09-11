@@ -33,12 +33,16 @@ int main(int argc, char ** argv) {
 
     TreeNode * root = NULL;
 
+    printf("Building binary tree...");
     for (int build_ix=0; build_ix<num_nodes; build_ix++) {
         root = insert_treenode(root, build_ix);
     }
+    log_green("✓");
 
     if (generate_dot) {
+        printf("Generating binary tree graphviz dot file...");
         gviz_tree(dot_filename, root);
+        log_green("✓");
     }
 
     destroy_tree(root);

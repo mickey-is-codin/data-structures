@@ -21,12 +21,12 @@ The beautiful thing about creating networks/graphs in C is that they port to mos
 ### Prerequisites
 The only external commands that are run for this project are shipped with the `graphviz` package.
 
-** Mac **
+**Mac**
 ```
 brew install graphviz
 ```
 
-** Ubuntu/Debian **
+**Ubuntu/Debian**
 The dot package for graphviz should come pre-installed on most ships of Debian, however if it's not there:
 ```
 sudo apt-get install graphviz

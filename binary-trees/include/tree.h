@@ -8,6 +8,9 @@ typedef struct _TreeNode {
     struct _TreeNode * right;
 } TreeNode;
 
-
+TreeNode * create_treenode(int value);
+TreeNode * insert_treenode(TreeNode * current_node, int value);
+void destroy_tree(TreeNode * current_node);
+int randint(int lower, int upper);
 
 #endif

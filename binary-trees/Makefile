@@ -23,8 +23,8 @@ GVIZ_ORD_DOT=graphviz/ord_tree.dot
 GVIZ_RAND_IMG=graphviz/rand_tree.png
 GVIZ_ORD_IMG=graphviz/ord_tree.png
 
-RAND_FLAGS=-v -d $(GVIZ_RAND_DOT) -n 20
-ORD_FLAGS=-v -d $(GVIZ_ORD_DOT) -n 20 -p 1
+RAND_FLAGS=-v -d $(GVIZ_RAND_DOT) -n 10
+ORD_FLAGS=-v -d $(GVIZ_ORD_DOT) -n 10
 
 all: rand order
 
@@ -33,14 +33,14 @@ rand: $(SRC_C) $(RAND_C)
 
 rdot: $(SRC_C) $(RAND_C)
 	$(CC) $(SRC_C) $(RAND_C) -o $(RAND_EXEC)
-	$(RAND_EXEC) && dot -Tpng $(GVIZ_RAND_DOT) -o $(GVIZ_RAND_IMG)
+	$(RAND_EXEC) $(RAND_FLAGS) && dot -Tpng $(GVIZ_RAND_DOT) -o $(GVIZ_RAND_IMG)
 
 order: $(SRC_C) $(ORD_C)
 	$(CC) $(SRC_C) $(ORD_C) -o $(ORD_EXEC)
 
 odot: $(SRC_C) $(ORD_C)
 	$(CC) $(SRC_C) $(ORD_C) -o $(ORD_EXEC)
-	$(ORD_EXEC) && dot -Tpng $(GVIZ_ORD_DOT) -o $(GVIZ_ORD_IMG)
+	$(ORD_EXEC) $(ORD_FLAGS) && dot -Tpng $(GVIZ_ORD_DOT) -o $(GVIZ_ORD_IMG)
 
 colors: $(COL_C) $(COL_H)
 	$(CC) $(COL_C) -o $(COL_EXEC) $(CFLAGS)

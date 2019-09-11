@@ -34,7 +34,7 @@ int main(int argc, char ** argv) {
     TreeNode * root = NULL;
 
     for (int build_ix=0; build_ix<num_nodes; build_ix++) {
-        insert_treenode(root, build_ix);
+        root = insert_treenode(root, build_ix);
     }
 
     if (generate_dot) {
@@ -66,7 +66,7 @@ int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
                 break;
             case 'n':
                 *num_nodes = atoi(optarg);
-                log_yell("max nodes set to %d", *num_nodes);
+                log_yell("number of nodes set to %d", *num_nodes);
                 break;
             case ':':
                 printf("option needs a value\n");

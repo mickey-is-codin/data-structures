@@ -50,14 +50,14 @@ And that's it! You should now have two executables, one for building a graph thr
 ## Examples
 
 ### Adjacency List
-** 20-node graph in random layout **
+**20-node graph in random layout**
 ```
 bin/list-network -d graphviz/20_node_list_graph.dot -n 20 -v
 dot -Tpng graphviz/20_node_list_graph.dot -o 20_node_list_graph.png
 ```
 IMAGE HERE
 
-** 15-node graph in circular layout **
+**15-node graph in circular layout**
 ```
 bin/list-network -d graphviz/15_node_list_graph.dot -n 15 -v
 circo -Tpng graphviz/15_node_list_graph.dot -o 15_node_list_graph.png
@@ -65,14 +65,14 @@ circo -Tpng graphviz/15_node_list_graph.dot -o 15_node_list_graph.png
 IMAGE HERE
 
 ### Adjacency Matrix
-** 20-node graph in circular layout **
+**20-node graph in circular layout**
 ```
 bin/matrix-network -d graphviz/20_node_matrix_graph.dot -n 20 -v
 circo -Tpng graphviz/20_node_matrix_graph.dot -o 20_node_matrix_graph.png
 ```
 IMAGE HERE
 
-** 20-node graph in circular layout (higher connectivity) **
+**20-node graph in circular layout (higher connectivity)**
 ```
 bin/matrix-network -d graphviz/20_node_matrix_graph_2.dot -n 20 -p -v
 circo -Tpng graphviz/20_node_matrix_graph_2.dot -o 20_node_matrix_graph_2.png

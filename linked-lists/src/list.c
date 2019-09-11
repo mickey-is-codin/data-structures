@@ -13,9 +13,13 @@ ListNode * create_node(int value) {
     return new_node;
 }
 
-void append(ListNode * head, int value) {
+ListNode * append(ListNode * head, int value) {
 
     ListNode * new_node = create_node(value);
+
+    if (head == NULL) {
+        return new_node;
+    }
 
     ListNode * temp_node = head;
     while (temp_node->next != NULL) {
@@ -23,6 +27,7 @@ void append(ListNode * head, int value) {
     }
     temp_node->next = new_node;
 
+    return head;
 }
 
 void pop(ListNode * head) {
@@ -52,3 +57,6 @@ void print_list(ListNode * head) {
     printf("%d", print_node->value);
 }
 
+int randint(int lower, int upper) {
+    return ((rand() % (upper - lower + 1)) + lower);
+}

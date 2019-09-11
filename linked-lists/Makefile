@@ -18,20 +18,22 @@ SFDP_OPTS=sfdp -x -Goverlap=scale -Tpng
 GVIZ_DOT=graphviz/list.dot
 GVIZ_IMG=graphviz/list.png
 
+FLAGS=-d $(GVIZ_DOT) -n 10 -v
+
 $(EXEC): $(SRC_C)
-	$(CC) -o $(MAIN_EXE) $(SRC_C) $(WARNING) $(ERROR) $(CFLAGS)
+	$(CC) $(SRC_C) -o $(EXEC)
 
 ldot: $(SRC_C)
 	$(CC) $(SRC_C) -o $(EXEC)
-	$(EXEC) && dot -Tpng $(GVIZ_DOT) -o $(GVIZ_IMG)
+	$(EXEC) $(FLAGS) && dot -Tpng $(GVIZ_DOT) -o $(GVIZ_IMG)
 
 lneat: $(SRC_C) $(LIST_C)
 	$(CC) $(SRC_C) $(LIST_C) -o $(EXEC) $(CFLAGS)
-	$(EXEC) && $(SFDP_OPTS) $(GVIZ_DOT) > $(GVIZ_IMG)
+	$(EXEC) $(FLAGS) && $(SFDP_OPTS) $(GVIZ_DOT) > $(GVIZ_IMG)
 
 lcirc: $(SRC_C)
 	$(CC) $(SRC_C) -o $(EXEC) $(CFLAGS)
-	$(EXEC) && circo -Tpng $(GVIZ_DOT) -o $(GVIZ_IMG)
+	$(EXEC) $(FLAGS) && circo -Tpng $(GVIZ_DOT) -o $(GVIZ_IMG)
 
 colors: $(COL_C) $(COL_H)
 	$(CC) $(COL_C) -o $(COL_EXEC) $(CFLAGS)

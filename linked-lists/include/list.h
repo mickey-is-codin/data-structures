@@ -8,9 +8,10 @@ typedef struct _ListNode {
 } ListNode;
 
 ListNode * create_node(int value);
-void append(ListNode * head, int value);
+ListNode * append(ListNode * head, int value);
 void pop(ListNode * head);
 void destroy_list(ListNode * head);
 void print_list(ListNode * head);
+int randint(int lower, int upper);
 
 #endif

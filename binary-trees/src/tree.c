@@ -43,7 +43,3 @@ void destroy_tree(TreeNode * current_root) {
     destroy_tree(current_root->right);
     free(current_root);
 }
-
-int randint(int lower, int upper) {
-    return ((rand() % (upper - lower + 1)) + lower);
-}

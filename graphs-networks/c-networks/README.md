@@ -75,7 +75,7 @@ circo -Tpng graphviz/20_node_matrix_graph.dot -o graphviz/20_node_matrix_graph.p
 
 **20-node graph in circular layout (higher connectivity)**
 ```
-bin/matrix-network -d graphviz/20_node_matrix_graph_2.dot -n 20 -p -v
+bin/matrix-network -d graphviz/20_node_matrix_graph_2.dot -n 20 -p 2 -v
 circo -Tpng graphviz/20_node_matrix_graph_2.dot -o graphviz/20_node_matrix_graph_2.png
 ```
 ![alt-text](graphviz/20_node_matrix_graph_2.png)

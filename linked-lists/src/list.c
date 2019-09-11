@@ -1,45 +1,54 @@
-#include "list.h"
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <assert.h>
+#include <string.h>
 
-ListNode * append_listnode(ListNode * current_node, int value) {
+#include "../include/list.h"
+#include "../include/clog.h"
 
-    if (current_node == NULL) {
-        current_node = create_listnode(value);
-        return current_node;
-    }
-
-    ListNode * head = current_node;
-
-    while (current_node->next != NULL) {
-        current_node = current_node->next;
-    }
-    ListNode * new_node = create_listnode(value);
-    current_node->next = new_node;
-
-    return head;
-}
-
-ListNode * create_listnode(int value) {
-
+ListNode * create_node(int value) {
     ListNode * new_node = malloc(sizeof(*new_node));
     new_node->value = value;
+    sprintf(new_node->label, "%d", value);
     new_node->next = NULL;
-
     return new_node;
 }
 
-void destroy_list(ListNode * current_node) {
+void append(ListNode * head, int value) {
 
-    while (current_node->next != NULL) {
-        ListNode * victim = current_node;
-        current_node = current_node->next;
-        free(victim);
+    ListNode * new_node = create_node(value);
+
+    ListNode * temp_node = head;
+    while (temp_node->next != NULL) {
+        temp_node = temp_node->next;
     }
-    free(current_node);
+    temp_node->next = new_node;
 
-    printf("Tree has been successfully and completely destroyed...\n");
 }
+
+void pop(ListNode * head) {
+    ListNode * temp_node = head;
+    while(temp_node->next->next != NULL){
+      temp_node = temp_node->next;
+    }
+    temp_node->next = NULL;
+}
+
+void destroy_list(ListNode * head) {
+    ListNode * victim_node = head;
+    while (head->next != NULL) {
+        victim_node = head;
+        head = head->next;
+        free(victim_node);
+    }
+    free(head);
+}
+
+void print_list(ListNode * head) {
+    ListNode * print_node = head;
+    while (print_node->next != NULL) {
+        printf("%d-->", print_node->value);
+        print_node = print_node->next;
+    }
+    printf("%d", print_node->value);
+}
+

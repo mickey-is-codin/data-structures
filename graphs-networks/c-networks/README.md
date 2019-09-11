@@ -62,12 +62,19 @@ IMAGE HERE
 bin/list-network -d graphviz/15_node_list_graph.dot -n 15 -v
 circo -Tpng graphviz/15_node_list_graph.dot -o 15_node_list_graph.png
 ```
+IMAGE HERE
 
 ### Adjacency Matrix
 ** 20-node graph in circular layout **
+```
 bin/matrix-network -d graphviz/20_node_matrix_graph.dot -n 20 -v
 circo -Tpng graphviz/20_node_matrix_graph.dot -o 20_node_matrix_graph.png
+```
+IMAGE HERE
 
 ** 20-node graph in circular layout (higher connectivity) **
+```
 bin/matrix-network -d graphviz/20_node_matrix_graph_2.dot -n 20 -p -v
 circo -Tpng graphviz/20_node_matrix_graph_2.dot -o 20_node_matrix_graph_2.png
+```
+IMAGE HERE

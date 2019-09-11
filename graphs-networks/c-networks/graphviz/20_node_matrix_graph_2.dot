@@ -1,0 +1,7 @@
+graph unix {
+	graph [ dpi = 300 ];
+	node [shape=circle];
+	size="6,6";
+	rankdir="LR";
+
+}

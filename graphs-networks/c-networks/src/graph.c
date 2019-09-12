@@ -53,13 +53,13 @@ void fill_a_matrix(int ** a_matrix, int num_nodes, int num_passes, int * total_c
 
 bool check_for_link(int p) {
 
-    int pick = randint(0, 100);
-    int percentile = 100 - p;
+    long double pick = (double) randint(0, 1000);
+    long double percentile = 1000.0 - p / 1000.0;
 
-    if (pick < percentile) {
-        return false;
-    } else {
+    if (pick > percentile) {
         return true;
+    } else {
+        return false;
     }
 
 }

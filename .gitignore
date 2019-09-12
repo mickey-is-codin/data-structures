@@ -1,3 +1,5 @@
 *.dSYM/
 bin/
+.DS_*
 .DS_Store
+graphs-networks/c-networks/.DS_Store

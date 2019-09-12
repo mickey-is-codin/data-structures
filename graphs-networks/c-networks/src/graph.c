@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <math.h>
 
+#include "../include/clog.h"
 #include "../include/graph.h"
 
 /* ADJACENCY MATRIX OPERATIONS */
@@ -26,19 +27,16 @@ int ** build_a_matrix(int num_nodes, bool zero_fill) {
     return a_matrix;
 }
 
-void fill_a_matrix(int ** a_matrix, int num_nodes, int num_passes, int * total_connections) {
+void fill_a_matrix(int ** a_matrix, int num_nodes, int num_passes, int * total_connections,
+                   int link_chance) {
 
-    int col_creep = 0;
-    float link_prob;
-    float prob_thresh = 0.5;
-    float giant_comp_thresh = 1.0 / num_nodes;
+    int col_creep = 1;
 
     for (int pass_ix=0; pass_ix<num_passes; pass_ix++) {
         for (int row_ix=0; row_ix<num_nodes; row_ix++) {
             for (int col_ix=col_creep; col_ix<num_nodes; col_ix++) {
-                link_prob = random_n_float(0.5, 0.1);
 
-                if ((link_prob > prob_thresh) && (row_ix != col_ix)) {
+                if (check_for_link(link_chance)) {
                     a_matrix[row_ix][col_ix] += 1;
                     if (a_matrix[row_ix][col_ix] == 1) {
                         (*total_connections)++;
@@ -49,6 +47,19 @@ void fill_a_matrix(int ** a_matrix, int num_nodes, int num_passes, int * total_c
             col_creep++;
         }
         col_creep = 0;
+    }
+
+}
+
+bool check_for_link(int p) {
+
+    int pick = randint(0, 100);
+    int percentile = 100 - p;
+
+    if (pick < percentile) {
+        return false;
+    } else {
+        return true;
     }
 
 }

@@ -7,9 +7,14 @@ void gviz_a_matrix(char * filename, int ** a_matrix, int num_nodes) {
 
     fprintf(dotfile, "graph unix {\n");
     fprintf(dotfile, "\tgraph [ dpi = 300 ];\n");
-    fprintf(dotfile, "\tnode [shape=circle];\n");
+    fprintf(dotfile, "\tnode [shape=point];\n");
+    fprintf(dotfile, "\tnode [fillcolor=red];\n");
     fprintf(dotfile, "\tsize=\"6,6\";\n");
     fprintf(dotfile, "\trankdir=\"LR\";\n\n");
+
+    for (int node_ix=0; node_ix<num_nodes; node_ix++) {
+        fprintf(dotfile, "\t%d\n", node_ix);
+    }
 
     for (int row_ix=0; row_ix<num_nodes; row_ix++) {
         for (int col_ix=0; col_ix<num_nodes; col_ix++) {

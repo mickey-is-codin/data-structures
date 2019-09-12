@@ -10,7 +10,7 @@
 #include "../include/clog.h"
 
 int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
-                char ** dot_filename, int * num_nodes, int * num_passes);
+                char ** dot_filename, int * num_nodes, int * num_passes, int * link_chance);
 
 int main(int argc, char ** argv) {
 
@@ -23,6 +23,7 @@ int main(int argc, char ** argv) {
     char * dot_filename = "graphviz/matrix_graph.dot";
     int  num_nodes    = 10;
     int  num_passes   = 1;
+    int link_chance   = 50;
     if (argc > 1) {
         int arg_result = parse_args(
             argc, argv,
@@ -30,7 +31,8 @@ int main(int argc, char ** argv) {
             &generate_dot,
             &dot_filename,
             &num_nodes,
-            &num_passes
+            &num_passes,
+            &link_chance
         );
         if (arg_result == -1) {
             return EXIT_SUCCESS;
@@ -44,7 +46,8 @@ int main(int argc, char ** argv) {
     int total_connections = 0;
     int full_graph_edges = (int) (num_nodes * (num_nodes - 1) ) / 2;
 
-    fill_a_matrix(a_matrix, num_nodes, num_passes, &total_connections);
+    fill_a_matrix(a_matrix, num_nodes, num_passes, &total_connections, link_chance);
+    total_connections -= num_nodes;
 
     float connected_ratio = (total_connections / (float) full_graph_edges) * 100.0;
 
@@ -69,17 +72,21 @@ int main(int argc, char ** argv) {
 }
 
 int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
-                char ** dot_filename, int * num_nodes, int * num_passes) {
+                char ** dot_filename, int * num_nodes, int * num_passes, int * link_chance) {
 
     int opt;
 
     log_yell("==Command Line Arguments==\n");
 
-    while ((opt = getopt(argc, argv, "vd:n:p:")) != -1) {
+    while ((opt = getopt(argc, argv, "vd:n:p:l:")) != -1) {
         switch (opt) {
             case 'v':
                 *verbose = true;
                 log_yell("verbose output on");
+                break;
+            case 'l':
+                *link_chance = atoi(optarg);
+                log_yell("link chance is %d", (*link_chance));
                 break;
             case 'd':
                 *generate_dot = true;

@@ -80,9 +80,9 @@ circo -Tpng graphviz/20_node_matrix_graph_2.dot -o graphviz/20_node_matrix_graph
 ```
 ![alt-text](graphviz/20_node_matrix_graph_2.png)
 
-**500-node graph with .0005 chance of link formation**
+**1000-node graph with .2% chance of link formation between nodes**
 ```
-bin/matrix-network -n 500 -l 50 -d graphviz/500_node_matrix_graph.dot
-sfdp -x -Goverlap=scale -Tpng graphviz/500_node_matrix_graph.dot -o graphviz/500_node_matrix_graph.png
+bin/matrix-network -n 1000 -l 20 -d graphviz/1000_node_matrix_graph.dot
+sfdp -x -Goverlap=scale -Tpng graphviz/1000_node_matrix_graph.dot -o graphviz/1000_node_matrix_graph.png
 ```
-![alt-text](graphviz/500_node_matrix_graph.png)
+![alt-text](graphviz/1000_node_matrix_graph.png)

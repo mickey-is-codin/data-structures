@@ -80,7 +80,7 @@ circo -Tpng graphviz/20_node_matrix_graph_2.dot -o graphviz/20_node_matrix_graph
 ```
 ![alt-text](graphviz/20_node_matrix_graph_2.png)
 
-**500-node graph with .005 chance of link formation**
+**500-node graph with .0005 chance of link formation**
 ```
 bin/matrix-network -n 500 -l 50 -d graphviz/500_node_matrix_graph.dot
 sfdp -x -Goverlap=scale -Tpng graphviz/500_node_matrix_graph.dot -o graphviz/500_node_matrix_graph.png

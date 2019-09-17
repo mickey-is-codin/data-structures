@@ -1,10 +1,6 @@
-MAT_EXEC=bin/matrix-network
-LIST_EXEC=bin/list-network
+EXEC=bin/bar-albert
 
-MAT_C=src/matrix_network.c
-LIST_C=src/list_network.c
-
-SRC_C=src/graph.c src/gviz_structs.c src/list.c
+SRC_C=src/main.c src/barabasi_albert.c src/graph.c src/gviz_structs.c src/list.c
 SRC_H=include/graph.h include/gviz_structs.h include/clog.h include/list.h
 
 CC=gcc
@@ -18,51 +14,16 @@ COL_H=include/clog.h
 # GRAPH-BUILDING OPTIONS
 SFDP_OPTS=sfdp -x -Goverlap=scale -Tpng
 
-GVIZ_LIST_DOT=graphviz/list_graph.dot
-GVIZ_MAT_DOT=graphviz/matrix_graph.dot
+GVIZ_DOT=graphviz/list_graph.dot
+GVIZ_IMG=graphviz/list_graph.png
 
-GVIZ_LIST_IMG=graphviz/list_graph.png
-GVIZ_MAT_IMG=graphviz/matrix_graph.png
+PROG_FLAGS=-v -d $(GVIZ_LIST_DOT) -n 20
 
-LIST_FLAGS=-v -d $(GVIZ_LIST_DOT) -n 20
-MAT_FLAGS=-v -d $(GVIZ_MAT_DOT) -n 20 -p 1
-
-all: list matrix
-
-# ADJACENCY LIST MAKES
-list: $(SRC_C) $(LIST_C)
-	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
-
-ldot: $(SRC_C) $(LIST_C)
-	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
-	$(LIST_EXEC) $(LIST_FLAGS) && dot -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
-
-lneat: $(SRC_C) $(LIST_C)
-	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
-	$(LIST_EXEC) $(LIST_FLAGS) && $(SFDP_OPTS) $(GVIZ_LIST_DOT) > $(GVIZ_LIST_IMG)
-
-lcirc: $(SRC_C) $(LIST_C)
-	$(CC) $(SRC_C) $(LIST_C) -o $(LIST_EXEC) $(CFLAGS)
-	$(LIST_EXEC) $(LIST_FLAGS) && circo -Tpng $(GVIZ_LIST_DOT) -o $(GVIZ_LIST_IMG)
-
-# ADJACENCY MATRIX MAKES
-matrix: $(SRC_C) $(MAT_C)
-	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
-
-mdot: $(SRC_C) $(MAT_C)
-	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
-	$(MAT_EXEC) $(MAT_FLAGS) && dot -Tpng $(GVIZ_MAT_DOT) -o $(GVIZ_MAT_IMG)
-
-mneat: $(SRC_C) $(MAT_C)
-	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
-	$(MAT_EXEC) $(MAT_FLAGS) && $(SFDP_OPTS) $(GVIZ_MAT_DOT) > $(GVIZ_MAT_IMG)
-
-mcirc: $(SRC_C) $(MAT_C)
-	$(CC) $(SRC_C) $(MAT_C) -o $(MAT_EXEC) $(CFLAGS)
-	$(MAT_EXEC) $(MAT_FLAGS) && circo -Tpng $(GVIZ_MAT_DOT) -o $(GVIZ_MAT_IMG)
+$(EXEC) : $(SRC_C) $(SRC_H)
+	$(CC) $(SRC_C) -o $(EXEC)
 
 colors: $(COL_C) $(COL_H)
 	$(CC) $(COL_C) -o $(COL_EXEC) $(CFLAGS)
 
 clean:
-	@rm -rf $(LIST_EXEC) $(MAT_EXEC)
+	@rm -rf $(EXEC)

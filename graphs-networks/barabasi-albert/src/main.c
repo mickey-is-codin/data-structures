@@ -2,69 +2,55 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include <math.h>
 #include <time.h>
 
-#include "../include/list.h"
-#include "../include/graph.h"
-#include "../include/gviz_structs.h"
+#include "../include/barabasi_albert.h"
 #include "../include/clog.h"
+#include "../include/graph.h"
+#include "../include/list.h"
+#include "../include/gviz_structs.h"
 
 int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
-                char ** dot_filename, int * num_nodes);
+                char ** dot_filename, int * max_nodes, int * steps);
 
 int main(int argc, char ** argv) {
 
     printf("Beginning program...\n\n");
+
     srand(time(0));
 
-    bool verbose      = false;
+    bool verbose = false;
     bool generate_dot = false;
-    char * dot_filename = "graphviz/list_graph.dot";
-    int  num_nodes    = 10;
+    char * dot_filename = "graphviz/matrix_graph.dot";
+    int  max_nodes = 10;
+    int steps = 10;
     if (argc > 1) {
         int arg_result = parse_args(
             argc, argv,
             &verbose,
             &generate_dot,
             &dot_filename,
-            &num_nodes
+            &max_nodes,
+            &steps
         );
         if (arg_result == -1) {
             return EXIT_SUCCESS;
         }
     }
 
-    printf("Building initial adjacency list...");
-    ListNode ** a_list = build_a_list(num_nodes);
-    log_green("✓");
 
-    fill_a_list(a_list, num_nodes);
 
-    if (generate_dot) {
-        printf("Generating graphviz dotfile...");
-        gviz_a_list(dot_filename, a_list, num_nodes);
-        log_green("✓");
-    }
-
-    if (verbose) {
-        print_a_list(a_list, num_nodes);
-    }
-
-    printf("Destroying adjacency list...");
-    destroy_a_list(a_list, num_nodes);
-    log_green("✓");
-
-    log_green("\nAll Done!\n");
     return EXIT_SUCCESS;
 }
 
 int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
-                char ** dot_filename, int * num_nodes) {
+                char ** dot_filename, int * max_nodes, int * steps) {
 
     int opt;
 
-    while ((opt = getopt(argc, argv, "vd:n:")) != -1) {
+    log_yell("==Command Line Arguments==\n");
+
+    while ((opt = getopt(argc, argv, "vd:n:s:")) != -1) {
         switch (opt) {
             case 'v':
                 *verbose = true;
@@ -76,8 +62,12 @@ int parse_args(int argc, char ** argv, bool * verbose, bool * generate_dot,
                 log_yell("graph .dot will be generated");
                 break;
             case 'n':
-                *num_nodes = atoi(optarg);
-                log_yell("max nodes set to %d", *num_nodes);
+                *max_nodes = atoi(optarg);
+                log_yell("max nodes set to %d", *max_nodes);
+                break;
+            case 's':
+                *steps = atoi(optarg);
+                log_yell("number of steps set to %d", *steps);
                 break;
             case ':':
                 printf("option needs a value\n");

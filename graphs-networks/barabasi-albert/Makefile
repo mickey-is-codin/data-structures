@@ -1,7 +1,7 @@
 EXEC=bin/bar-albert
 
-SRC_C=src/main.c src/barabasi_albert.c src/graph.c src/gviz_structs.c src/list.c
-SRC_H=include/graph.h include/gviz_structs.h include/clog.h include/list.h
+SRC_C=src/main.c src/barabasi_albert.c src/a_list.c src/gviz_structs.c src/list.c
+SRC_H=include/a_list.h include/gviz_structs.h include/clog.h include/list.h
 
 CC=gcc
 CFLAGS=-lm

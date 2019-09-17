@@ -49,6 +49,6 @@ void print_list(ListNode * head) {
         printf("%d-->", print_node->value);
         print_node = print_node->next;
     }
-    printf("%d", print_node->value);
+    printf("%d\n", print_node->value);
 }
 

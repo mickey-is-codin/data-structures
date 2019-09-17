@@ -6,7 +6,7 @@
 
 #include "../include/barabasi_albert.h"
 #include "../include/clog.h"
-#include "../include/graph.h"
+#include "../include/a_list.h"
 #include "../include/list.h"
 #include "../include/gviz_structs.h"
 
@@ -38,7 +38,14 @@ int main(int argc, char ** argv) {
         }
     }
 
+    ListNode * graph_head = NULL;
+    for (int i=0; i<10; i++) {
+        graph_head = push_graph_node(graph_head, i);
+    }
 
+    print_list(graph_head);
+
+    destroy_list(graph_head);
 
     return EXIT_SUCCESS;
 }

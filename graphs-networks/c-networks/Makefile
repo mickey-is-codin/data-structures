@@ -27,7 +27,10 @@ GVIZ_MAT_IMG=graphviz/matrix_graph.png
 LIST_FLAGS=-v -d $(GVIZ_LIST_DOT) -n 20
 MAT_FLAGS=-v -d $(GVIZ_MAT_DOT) -n 20 -p 1
 
-all: list matrix
+all: bin list matrix
+
+bin:
+	@mkdir -p bin
 
 # ADJACENCY LIST MAKES
 list: $(SRC_C) $(LIST_C)
